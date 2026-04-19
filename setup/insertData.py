@@ -20,5 +20,8 @@ cursor.execute("""INSERT INTO player_club (player_id, club_id)
                VALUES (1,1),
                (2,1);
                """)
+cursor.execute("""INSERT INTO matches (home_club_id, away_club_id, match_day)
+               VALUES(1,2,1);
+               """)
 
 conn.commit()
