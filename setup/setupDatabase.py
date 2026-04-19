@@ -29,7 +29,7 @@ cursor.execute("""
                REFERENCES clubs(id))
                """)
 cursor.execute("""
-               CREATE TABLE IF NOT EXISTS match (id INTEGER PRIMARY KEY AUTOINCREMENT,
+               CREATE TABLE IF NOT EXISTS matches (id INTEGER PRIMARY KEY AUTOINCREMENT,
                home_club_id INTEGER NOT NULL,
                away_club_id INTEGER NOT NULL,
                match_day INTEGER NOT NULL,
