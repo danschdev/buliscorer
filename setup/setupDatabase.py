@@ -28,5 +28,17 @@ cursor.execute("""
                FOREIGN KEY (club_id)
                REFERENCES clubs(id))
                """)
+cursor.execute("""
+               CREATE TABLE IF NOT EXISTS match (id INTEGER PRIMARY KEY AUTOINCREMENT,
+               home_club_id INTEGER NOT NULL,
+               away_club_id INTEGER NOT NULL,
+               match_day INTEGER NOT NULL,
+               CONSTRAINT fk_home_club
+               FOREIGN KEY(home_club_id)
+               REFERENCES clubs(id),
+               CONSTRAINT fk_away_club
+               FOREIGN KEY (away_club_id)
+               REFERENCES clubs(id))
+               """)
 
 conn.close();
