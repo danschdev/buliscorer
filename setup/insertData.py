@@ -12,5 +12,13 @@ cursor.execute("""INSERT INTO players (name, first_name)
                VALUES ("Kane","Harry"),
                ("Olise","Michael");
                """)
+cursor.execute("""INSERT INTO clubs (name)
+               VALUES ("FC Bayern München"),
+               ("RB Leipzig");
+               """)
+cursor.execute("""INSERT INTO player_club (player_id, club_id)
+               VALUES (1,1),
+               (2,1);
+               """)
 
 conn.commit()

@@ -8,7 +8,10 @@ db = script_directory / "data" / "database.db"
 conn = sqlite3.connect(db)
 cursor = conn.cursor()
 
-cursor.execute("SELECT * FROM players")
+cursor.execute("""SELECT clubs.name, players.name, players.first_name, players.id FROM players
+               INNER JOIN player_club ON players.id = player_club.player_id
+               INNER JOIN clubs ON player_club.club_id = clubs.id
+""")
 
 for row in cursor.fetchall():
-    print(row[1]+ " heisst mit Vornamen " + row[2])
+    print(row[1]+ " heisst mit Vornamen " + row[2] + ", hat die ID " + str(row[3]) + " und spielt für " + row[0])
