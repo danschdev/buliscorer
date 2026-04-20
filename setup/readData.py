@@ -16,11 +16,11 @@ cursor = conn.cursor()
 #for row in cursor.fetchall():
 #    print(row[1]+ " heisst mit Vornamen " + row[2] + ", hat die ID " + str(row[3]) + " und spielt für " + row[0])
 
-cursor.execute("""SELECT home_club.name, away_club.name, match_day
+cursor.execute("""SELECT home_club.name, away_club.name, match_day, date
                FROM clubs AS home_club
                INNER JOIN matches AS match ON match.home_club_id = home_club.id
                INNER JOIN clubs AS away_club ON match.away_club_id = away_club.id;
                """)
 
 for row in cursor.fetchall():
-    print(row[0] + " hat an Spieltag " + str(row[2]) + " " + row[1] + " zu Gast.")
+    print(row[0] + " hat an Spieltag " + str(row[2]) + " " + row[1] + " zu Gast. Datum des Spiels: " + str(row[3]))

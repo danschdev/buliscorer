@@ -33,6 +33,7 @@ cursor.execute("""
                home_club_id INTEGER NOT NULL,
                away_club_id INTEGER NOT NULL,
                match_day INTEGER NOT NULL,
+               date DATETIME NOT NULL,
                CONSTRAINT fk_home_club
                FOREIGN KEY(home_club_id)
                REFERENCES clubs(id),
