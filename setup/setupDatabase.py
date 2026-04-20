@@ -45,7 +45,7 @@ cursor.execute("""
                CREATE TABLE IF NOT EXISTS goals (id INTEGER PRIMARY KEY AUTOINCREMENT,
                match_id INTEGER NOT NULL,
                scorer_id INTEGER NOT NULL,
-               assist_id INTEGER,
+               assist_id INTEGER DEFAUL NULL,
                is_own_goal BOOLEAN DEFAULT 0,
                is_penalty BOOLEAN DEFAULT 0)
                """)
