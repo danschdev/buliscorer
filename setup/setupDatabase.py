@@ -41,5 +41,13 @@ cursor.execute("""
                FOREIGN KEY (away_club_id)
                REFERENCES clubs(id))
                """)
+cursor.execute("""
+               CREATE TABLE IF NOT EXISTS goals (id INTEGER PRIMARY KEY AUTOINCREMENT,
+               match_id INTEGER NOT NULL,
+               scorer_id INTEGER NOT NULL,
+               assist_id INTEGER,
+               is_own_goal BOOLEAN DEFAULT 0,
+               is_penalty BOOLEAN DEFAULT 0)
+               """)
 
 conn.close();

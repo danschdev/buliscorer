@@ -23,5 +23,7 @@ cursor.execute("""INSERT INTO player_club (player_id, club_id)
 cursor.execute("""INSERT INTO matches (home_club_id, away_club_id, match_day, date)
                VALUES(1,2,1,"2025-08-01T20:30:00Z");
                """)
-
+cursor.execute("""INSERT INTO goals (match_id, scorer_id)
+               VALUES (1,1);
+               """)
 conn.commit()
