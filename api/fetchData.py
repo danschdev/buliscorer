@@ -31,4 +31,13 @@ for spiel in range (0, 9):
 
     cursor.executemany(statement,data)
 
+    statement = (
+        "INSERT OR IGNORE INTO matches (id, home_club_id, away_club_id, match_day, date) "
+        "VALUES (? ,?, ?, ?, ?)"
+    )
+    matchData = [
+        response.json()[spiel]["matchID"], team1Id, team2Id, response.json()[spiel]["group"]["groupOrderID"], response.json()[spiel]["matchDateTime"]
+    ]
+    cursor.execute(statement, matchData)
+    print (response.json()[spiel])
 conn.commit()

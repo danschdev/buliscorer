@@ -25,16 +25,18 @@ cursor.execute("""SELECT home_club.name, away_club.name, match_day, date, match.
                LEFT JOIN players AS assist on assist.id = goal.assist_id
                """)
 
+cursor.execute("""SELECT * FROM matches""")
+
 rows = cursor.fetchall()
 
-row = rows[0]
+#print (rows)
 
-homeClub = row[0]
-awayClub = row[1]
-matchDay = row[2]
-date = row[3]
+#homeClub = row[0]
+#awayClub = row[1]
+#matchDay = row[2]
+#date = row[3]
 
-print(homeClub + " hat an Spieltag " + str(matchDay) + " " + awayClub + " zu Gast. Datum des Spiels: " + str(date) +".")
+#print(homeClub + " hat an Spieltag " + str(matchDay) + " " + awayClub + " zu Gast. Datum des Spiels: " + str(date) +".")
 
 for row in rows:
     print (row)
