@@ -40,3 +40,11 @@ rows = cursor.fetchall()
 
 for row in rows:
     print (row)
+
+cursor.execute("""SELECT players.name, COUNT(goals.id) FROM goals
+               LEFT JOIN players ON goals.scorer_id = players.id""")
+
+rows = cursor.fetchall()
+
+for row in rows:
+    print (row)

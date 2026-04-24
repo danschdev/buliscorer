@@ -36,8 +36,24 @@ for spiel in range (0, 9):
         "VALUES (? ,?, ?, ?, ?)"
     )
     matchData = [
-        response.json()[spiel]["matchID"], team1Id, team2Id, response.json()[spiel]["group"]["groupOrderID"], response.json()[spiel]["matchDateTime"]
+        response.json()[spiel]["matchID"],
+        team1Id,
+        team2Id,
+        response.json()[spiel]["group"]["groupOrderID"],
+        response.json()[spiel]["matchDateTime"],
     ]
     cursor.execute(statement, matchData)
-    print (response.json()[spiel])
+    goalData = response.json()[spiel]["goals"]
+    for goal in goalData:
+        statement = (
+            "INSERT OR IGNORE INTO goals (id, match_id, scorer_id, is_own_goal, is_penalty)"
+            "VALUES (?, ?, ?, ?, ?)"
+        )
+        cursor.execute(statement,  [
+            goal["goalID"],
+            response.json()[spiel]["matchID"],
+            goal["goalGetterID"],
+            goal["isOwnGoal"],
+            goal["isPenalty"]
+        ]) 
 conn.commit()
