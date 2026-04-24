@@ -15,12 +15,13 @@ for spieltag in range (1, 34):
     url = "https://api.openligadb.de/getmatchdata/bl1/2011/" + str(spieltag)
 
     response = requests.get(url)
+    responseData = response.json()
 
     for spiel in range (0, 9):
-        team1Id = response.json()[spiel]["team1"]["teamId"]
-        team1Name = response.json()[spiel]["team1"]["teamName"]
-        team2Id = response.json()[spiel]["team2"]["teamId"]
-        team2Name = response.json()[spiel]["team2"]["teamName"]
+        team1Id = responseData[spiel]["team1"]["teamId"]
+        team1Name = responseData[spiel]["team1"]["teamName"]
+        team2Id = responseData[spiel]["team2"]["teamId"]
+        team2Name = responseData[spiel]["team2"]["teamName"]
 
         statement = (
             "INSERT OR IGNORE INTO clubs (id, name) "
@@ -38,14 +39,14 @@ for spieltag in range (1, 34):
             "VALUES (? ,?, ?, ?, ?)"
         )
         matchData = [
-            response.json()[spiel]["matchID"],
+            responseData[spiel]["matchID"],
             team1Id,
             team2Id,
-            response.json()[spiel]["group"]["groupOrderID"],
-            response.json()[spiel]["matchDateTime"],
+            responseData[spiel]["group"]["groupOrderID"],
+            responseData[spiel]["matchDateTime"],
         ]
         cursor.execute(statement, matchData)
-        goalData = response.json()[spiel]["goals"]
+        goalData = responseData[spiel]["goals"]
         for goal in goalData:
             statement = (
                 "INSERT OR IGNORE INTO goals (id, match_id, scorer_id, is_own_goal, is_penalty)"
@@ -53,7 +54,7 @@ for spieltag in range (1, 34):
             )
             cursor.execute(statement,  [
                 goal["goalID"],
-                response.json()[spiel]["matchID"],
+                responseData[spiel]["matchID"],
                 goal["goalGetterID"],
                 goal["isOwnGoal"],
                 goal["isPenalty"]
