@@ -42,8 +42,9 @@ for row in rows:
     print (row)
 
 cursor.execute("""SELECT players.name, COUNT(goals.id) FROM goals
-               LEFT JOIN players ON goals.scorer_id = players.id""")
-
+               LEFT JOIN players ON goals.scorer_id = players.id
+               GROUP BY players.id""")
+#cursor.execute("""SELECT * FROM goals""")
 rows = cursor.fetchall()
 
 for row in rows:

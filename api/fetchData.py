@@ -56,4 +56,13 @@ for spiel in range (0, 9):
             goal["isOwnGoal"],
             goal["isPenalty"]
         ]) 
+        playerStatement = (
+            "INSERT OR IGNORE INTO players (id, name, first_name)"
+            "VALUES (?, ?, ?)"
+        )
+        cursor.execute(playerStatement, [
+            goal["goalGetterID"],
+            goal["goalGetterName"],
+            None
+        ])
 conn.commit()
