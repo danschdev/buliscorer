@@ -38,8 +38,10 @@ rows = cursor.fetchall()
 
 #print(homeClub + " hat an Spieltag " + str(matchDay) + " " + awayClub + " zu Gast. Datum des Spiels: " + str(date) +".")
 
-cursor.execute("""SELECT players.name, COUNT(goals.id) FROM goals
+cursor.execute("""SELECT players.name, COUNT(DISTINCT goals.id), clubs.name FROM goals
                LEFT JOIN players ON goals.scorer_id = players.id
+               LEFT JOIN player_club ON players.id = player_club.player_id
+               LEFT JOIN clubs ON clubs.id = player_club.club_id
                GROUP BY players.id
                HAVING COUNT(goals.id) >= 10
                ORDER BY COUNT(goals.id) DESC""")
