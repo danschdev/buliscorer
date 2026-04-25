@@ -42,7 +42,7 @@ cursor.execute("""SELECT players.name, COUNT(goals.id) FROM goals
                LEFT JOIN players ON goals.scorer_id = players.id
                GROUP BY players.id
                HAVING COUNT(goals.id) >= 10
-               ORDER BY COUNT(goals.id)""")
+               ORDER BY COUNT(goals.id) DESC""")
 #cursor.execute("""SELECT * FROM goals""")
 rows = cursor.fetchall()
 
