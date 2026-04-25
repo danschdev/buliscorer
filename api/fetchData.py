@@ -47,6 +47,8 @@ for spieltag in range (1, 35):
         ]
         cursor.execute(statement, matchData)
         goalData = responseData[spiel]["goals"]
+        scoreTeam1 = 0
+        scoreTeam2 = 0
         for goal in goalData:
             statement = (
                 "INSERT OR IGNORE INTO goals (id, match_id, scorer_id, is_own_goal, is_penalty)"
@@ -67,5 +69,19 @@ for spieltag in range (1, 35):
                 goal["goalGetterID"],
                 goal["goalGetterName"],
                 None
+            ])
+            playerClubStatement = (
+                "INSERT OR IGNORE INTO player_club (player_id, club_id)"
+                "VALUES (?, ?)"
+            )
+            if (scoreTeam1 < goal["scoreTeam1"] and not goal["isOwnGoal"]):
+                scorer_team_id = team1Id
+                scoreTeam1 += 1
+            if (scoreTeam2 < goal["scoreTeam2"] and not goal["isOwnGoal"]):
+                scorer_team_id = team2Id
+                scoreTeam2 += 1
+            cursor.execute(playerClubStatement, [
+                goal["goalGetterID"],
+                scorer_team_id
             ])
 conn.commit()
