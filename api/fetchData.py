@@ -11,7 +11,7 @@ conn = sqlite3.connect(db)
 cursor = conn.cursor()
 
 
-for spieltag in range (1, 34):
+for spieltag in range (1, 35):
     url = "https://api.openligadb.de/getmatchdata/bl1/2011/" + str(spieltag)
 
     response = requests.get(url)
