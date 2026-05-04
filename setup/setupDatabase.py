@@ -18,9 +18,10 @@ cursor.execute("""
                name TEXT NOT NULL);
                """)
 cursor.execute("""
-               CREATE TABLE IF NOT EXISTS player_club (id INTEGER PRIMARY KEY AUTOINCREMENT,
+               CREATE TABLE IF NOT EXISTS player_club (
                player_id INTEGER NOT NULL,
                club_id INTEGER NOT NULL,
+               PRIMARY KEY (player_id, club_id),
                CONSTRAINT fk_player
                FOREIGN KEY (player_id)
                REFERENCES players(id),
@@ -49,5 +50,11 @@ cursor.execute("""
                is_own_goal BOOLEAN DEFAULT 0,
                is_penalty BOOLEAN DEFAULT 0)
                """)
-
+cursor.execute("""
+               CREATE VIEW v_player_club AS 
+               SELECT players.id AS pid, players.name as pname, clubs.id AS cid, clubs.name AS cname
+               FROM players
+               INNER JOIN player_club ON players.id = player_club.player_id
+               INNER JOIN clubs ON player_club.club_id = clubs.id
+               """)
 conn.close();

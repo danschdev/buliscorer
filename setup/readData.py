@@ -25,16 +25,28 @@ cursor.execute("""SELECT home_club.name, away_club.name, match_day, date, match.
                LEFT JOIN players AS assist on assist.id = goal.assist_id
                """)
 
+cursor.execute("""SELECT * FROM matches""")
+
 rows = cursor.fetchall()
 
-row = rows[0]
+#print (rows)
 
-homeClub = row[0]
-awayClub = row[1]
-matchDay = row[2]
-date = row[3]
+#homeClub = row[0]
+#awayClub = row[1]
+#matchDay = row[2]
+#date = row[3]
 
-print(homeClub + " hat an Spieltag " + str(matchDay) + " " + awayClub + " zu Gast. Datum des Spiels: " + str(date) +".")
+#print(homeClub + " hat an Spieltag " + str(matchDay) + " " + awayClub + " zu Gast. Datum des Spiels: " + str(date) +".")
+
+cursor.execute("""SELECT players.name, COUNT(DISTINCT goals.id), clubs.name FROM goals
+               LEFT JOIN players ON goals.scorer_id = players.id
+               LEFT JOIN player_club ON players.id = player_club.player_id
+               LEFT JOIN clubs ON clubs.id = player_club.club_id
+               GROUP BY players.id
+               HAVING COUNT(goals.id) >= 10
+               ORDER BY COUNT(goals.id) DESC""")
+#cursor.execute("""SELECT * FROM goals""")
+rows = cursor.fetchall()
 
 for row in rows:
     print (row)
