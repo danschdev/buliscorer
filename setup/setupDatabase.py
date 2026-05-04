@@ -51,7 +51,7 @@ cursor.execute("""
                """)
 cursor.execute("""
                CREATE VIEW v_player_club AS 
-               SELECT players.name, clubs.name
+               SELECT players.id AS pid, players.name as pname, clubs.id AS cid, clubs.name AS cname
                FROM players
                INNER JOIN player_club ON players.id = player_club.player_id
                INNER JOIN clubs ON player_club.club_id = clubs.id
