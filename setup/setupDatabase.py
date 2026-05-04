@@ -18,9 +18,10 @@ cursor.execute("""
                name TEXT NOT NULL);
                """)
 cursor.execute("""
-               CREATE TABLE IF NOT EXISTS player_club (id INTEGER PRIMARY KEY AUTOINCREMENT,
+               CREATE TABLE IF NOT EXISTS player_club (
                player_id INTEGER NOT NULL,
                club_id INTEGER NOT NULL,
+               PRIMARY KEY (player_id, club_id),
                CONSTRAINT fk_player
                FOREIGN KEY (player_id)
                REFERENCES players(id),
