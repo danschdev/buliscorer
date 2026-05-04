@@ -49,5 +49,11 @@ cursor.execute("""
                is_own_goal BOOLEAN DEFAULT 0,
                is_penalty BOOLEAN DEFAULT 0)
                """)
-
+cursor.execute("""
+               CREATE VIEW v_player_club AS 
+               SELECT players.name, clubs.name
+               FROM players
+               INNER JOIN player_club ON players.id = player_club.player_id
+               INNER JOIN clubs ON player_club.club_id = clubs.id
+               """)
 conn.close();
