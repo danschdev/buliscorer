@@ -46,7 +46,9 @@ for spieltag in range (1, 35):
             responseData[spiel]["matchDateTime"],
         ]
         cursor.execute(statement, matchData)
-        goalData = responseData[spiel]["goals"]
+        # Sorting the goals by play time helps finding a scorer's team by former and current standing
+        goalData = sorted(responseData[spiel]["goals"],
+                          key = lambda goal: goal["matchMinute"])
         scoreTeam1 = 0
         scoreTeam2 = 0
         for goal in goalData:
