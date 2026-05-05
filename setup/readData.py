@@ -22,7 +22,7 @@ cursor.execute("""SELECT * FROM matches""")
 
 rows = cursor.fetchall()
 
-query = """SELECT players.name, COUNT(DISTINCT goals.id), clubs.name FROM goals
+query = """SELECT players.name AS pname, COUNT(DISTINCT goals.id) AS gcount, clubs.name AS cname FROM goals
                LEFT JOIN players ON goals.scorer_id = players.id
                LEFT JOIN player_club ON players.id = player_club.player_id
                LEFT JOIN clubs ON clubs.id = player_club.club_id
@@ -31,5 +31,7 @@ query = """SELECT players.name, COUNT(DISTINCT goals.id), clubs.name FROM goals
                ORDER BY COUNT(goals.id) DESC"""
 
 df = pandas.read_sql(query, conn)
-for row in df.itertuples():
-    print (row)
+
+for index, row in df.iterrows():
+    print (index + 1) # computer counts from 0, human from 1
+    print (row.pname + ' ' + str(row.gcount) + ' ' + row.cname)
