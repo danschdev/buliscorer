@@ -22,7 +22,7 @@ cursor.execute("""SELECT * FROM matches""")
 
 rows = cursor.fetchall()
 
-query = """SELECT players.name AS pname, COUNT(DISTINCT goals.id) AS gcount, clubs.name AS cname FROM goals
+query = """SELECT players.name AS pname, COUNT(DISTINCT goals.id) AS gcount, GROUP_CONCAT(DISTINCT clubs.name) AS cname FROM goals
                LEFT JOIN players ON goals.scorer_id = players.id
                LEFT JOIN player_club ON players.id = player_club.player_id
                LEFT JOIN clubs ON clubs.id = player_club.club_id
