@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import pandas
 import sqlite3
 from pathlib import Path
 
@@ -21,15 +22,14 @@ cursor.execute("""SELECT * FROM matches""")
 
 rows = cursor.fetchall()
 
-cursor.execute("""SELECT players.name, COUNT(DISTINCT goals.id), clubs.name FROM goals
+query = """SELECT players.name, COUNT(DISTINCT goals.id), clubs.name FROM goals
                LEFT JOIN players ON goals.scorer_id = players.id
                LEFT JOIN player_club ON players.id = player_club.player_id
                LEFT JOIN clubs ON clubs.id = player_club.club_id
                GROUP BY players.id
                HAVING COUNT(goals.id) >= 10
-               ORDER BY COUNT(goals.id) DESC""")
+               ORDER BY COUNT(goals.id) DESC"""
 
-rows = cursor.fetchall()
-
-for row in rows:
+df = pandas.read_sql(query, conn)
+for row in df.itertuples():
     print (row)
