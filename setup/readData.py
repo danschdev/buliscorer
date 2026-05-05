@@ -27,7 +27,7 @@ query = """SELECT players.name AS pname, COUNT(DISTINCT goals.id) AS gcount, clu
                LEFT JOIN player_club ON players.id = player_club.player_id
                LEFT JOIN clubs ON clubs.id = player_club.club_id
                GROUP BY players.id
-               HAVING COUNT(goals.id) >= 10
+               HAVING COUNT(DISTINCT goals.id) >= 10
                ORDER BY COUNT(goals.id) DESC"""
 
 df = pandas.read_sql(query, conn)
