@@ -30,7 +30,22 @@ pip install -r requirements.txt
 
 ```bash
 python.exe .\setup\setupDatabase.py
-``` 
+```
 
 ### 5. Import data via openligadb API
+```bash
 python.exe .\api\fetchData.py
+```
+
+## Code Quality Tools
+
+### Ruff usage
+Static analysis / linting
+```bash
+ruff check --fix
+```
+
+Layout style
+```bash
+ruff format .
+```
