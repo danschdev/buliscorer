@@ -49,3 +49,8 @@ Layout style
 ```bash
 ruff format .
 ```
+
+### Pyright Usage
+```bash
+pyright .
+```
