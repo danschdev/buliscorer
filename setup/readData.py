@@ -19,5 +19,5 @@ query = """SELECT players.name AS pname, COUNT(DISTINCT goals.id) AS gcount, GRO
 df = pandas.read_sql(query, conn)
 
 for index, row in df.iterrows():
-    print (index + 1) # computer counts from 0, human from 1
-    print (row.pname + ' ' + str(row.gcount) + ' ' + row.cname)
+    print(index + 1)  # computer counts from 0, human from 1
+    print(row.pname + " " + str(row.gcount) + " " + row.cname)

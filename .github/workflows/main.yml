@@ -1,0 +1,9 @@
+name: code-quality
+on: [push]
+jobs:
+    check-code-quality:
+        runs-on: ubuntu-latest
+        steps:
+            - run: pip install ruff
+            - run: ruff check .
+            - run: ruff format --check .

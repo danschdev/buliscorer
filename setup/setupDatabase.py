@@ -57,4 +57,4 @@ cursor.execute("""
                INNER JOIN player_club ON players.id = player_club.player_id
                INNER JOIN clubs ON player_club.club_id = clubs.id
                """)
-conn.close();
+conn.close()
